@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3 -std=c++11 -g  -rdynamic CMakeFiles/a.dir/src/common.cpp.o CMakeFiles/a.dir/src/main.cpp.o  -o a 
