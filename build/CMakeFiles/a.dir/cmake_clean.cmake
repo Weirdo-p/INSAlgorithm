@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/a.dir/src/calibrateAccel.cpp.o"
+  "CMakeFiles/a.dir/src/calibrateGyro.cpp.o"
   "CMakeFiles/a.dir/src/common.cpp.o"
   "CMakeFiles/a.dir/src/main.cpp.o"
   "a.pdb"

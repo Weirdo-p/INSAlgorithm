@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/weirdo/Documents/coding/INSAlgorithm/src/calibrateAccel.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/calibrateAccel.cpp.o"
+  "/home/weirdo/Documents/coding/INSAlgorithm/src/calibrateGyro.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/calibrateGyro.cpp.o"
   "/home/weirdo/Documents/coding/INSAlgorithm/src/common.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/common.cpp.o"
   "/home/weirdo/Documents/coding/INSAlgorithm/src/main.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/main.cpp.o"
   )

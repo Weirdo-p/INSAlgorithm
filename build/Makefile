@@ -123,6 +123,60 @@ a/fast:
 	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/build
 .PHONY : a/fast
 
+src/calibrateAccel.o: src/calibrateAccel.cpp.o
+
+.PHONY : src/calibrateAccel.o
+
+# target to build an object file
+src/calibrateAccel.cpp.o:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/calibrateAccel.cpp.o
+.PHONY : src/calibrateAccel.cpp.o
+
+src/calibrateAccel.i: src/calibrateAccel.cpp.i
+
+.PHONY : src/calibrateAccel.i
+
+# target to preprocess a source file
+src/calibrateAccel.cpp.i:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/calibrateAccel.cpp.i
+.PHONY : src/calibrateAccel.cpp.i
+
+src/calibrateAccel.s: src/calibrateAccel.cpp.s
+
+.PHONY : src/calibrateAccel.s
+
+# target to generate assembly for a file
+src/calibrateAccel.cpp.s:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/calibrateAccel.cpp.s
+.PHONY : src/calibrateAccel.cpp.s
+
+src/calibrateGyro.o: src/calibrateGyro.cpp.o
+
+.PHONY : src/calibrateGyro.o
+
+# target to build an object file
+src/calibrateGyro.cpp.o:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/calibrateGyro.cpp.o
+.PHONY : src/calibrateGyro.cpp.o
+
+src/calibrateGyro.i: src/calibrateGyro.cpp.i
+
+.PHONY : src/calibrateGyro.i
+
+# target to preprocess a source file
+src/calibrateGyro.cpp.i:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/calibrateGyro.cpp.i
+.PHONY : src/calibrateGyro.cpp.i
+
+src/calibrateGyro.s: src/calibrateGyro.cpp.s
+
+.PHONY : src/calibrateGyro.s
+
+# target to generate assembly for a file
+src/calibrateGyro.cpp.s:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/calibrateGyro.cpp.s
+.PHONY : src/calibrateGyro.cpp.s
+
 src/common.o: src/common.cpp.o
 
 .PHONY : src/common.o
@@ -186,6 +240,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... a"
 	@echo "... edit_cache"
+	@echo "... src/calibrateAccel.o"
+	@echo "... src/calibrateAccel.i"
+	@echo "... src/calibrateAccel.s"
+	@echo "... src/calibrateGyro.o"
+	@echo "... src/calibrateGyro.i"
+	@echo "... src/calibrateGyro.s"
 	@echo "... src/common.o"
 	@echo "... src/common.i"
 	@echo "... src/common.s"
