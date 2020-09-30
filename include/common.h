@@ -11,7 +11,9 @@
 #include <eigen3/Eigen/Dense>
 #include <vector>
 
+// #define PHI 30.4042231878 // in deg
 #define PHI 30.5278 // in deg
+
 #define GRAVITY 9.7936174
 #define OMEGA 7.292115e-5 // self rotation
 #define _T_ 0.01 // frequency
@@ -61,4 +63,14 @@ double Rad2Deg(const double rad);
  * @return status code
 *********************************************************/
 bool Compensate(const Matrix34d M, const VecVector3d AccelOriginOuput, VecVector3d &AccelCompensated);
+
+/********************************************************
+ * function: to read the data from the decoded file
+ *           using to do static-state initial alignment
+ * @param DataFile [in] path of your file
+ * @param Accel    [out] Accel output
+ * @param Gyro     [out] Gyro output
+ * @return status code
+********************************************************/
+bool ReadLinsData(const string DataFile, VecVector3d &Accel, VecVector3d &Gyro);
 #endif

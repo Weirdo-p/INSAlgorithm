@@ -58,7 +58,9 @@ class CalibrateGyro
 
     Vector3d GetBias();
 
-    VecVector3d* GetOrigin();
+    VecVector3d* GetOrigin_Kinematic();
+
+    VecVector3d* GetOrigin_Static();
 
     public:
     friend bool ReadASC(string ASCPath, VecVector3d &Accel, VecVector3d &Gyro);
