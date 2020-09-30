@@ -204,6 +204,33 @@ src/common.cpp.s:
 	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/common.cpp.s
 .PHONY : src/common.cpp.s
 
+src/initialalignment.o: src/initialalignment.cpp.o
+
+.PHONY : src/initialalignment.o
+
+# target to build an object file
+src/initialalignment.cpp.o:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/initialalignment.cpp.o
+.PHONY : src/initialalignment.cpp.o
+
+src/initialalignment.i: src/initialalignment.cpp.i
+
+.PHONY : src/initialalignment.i
+
+# target to preprocess a source file
+src/initialalignment.cpp.i:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/initialalignment.cpp.i
+.PHONY : src/initialalignment.cpp.i
+
+src/initialalignment.s: src/initialalignment.cpp.s
+
+.PHONY : src/initialalignment.s
+
+# target to generate assembly for a file
+src/initialalignment.cpp.s:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/initialalignment.cpp.s
+.PHONY : src/initialalignment.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -249,6 +276,9 @@ help:
 	@echo "... src/common.o"
 	@echo "... src/common.i"
 	@echo "... src/common.s"
+	@echo "... src/initialalignment.o"
+	@echo "... src/initialalignment.i"
+	@echo "... src/initialalignment.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -22,6 +22,10 @@ eigen3/Eigen/Dense
 vector
 -
 
+/home/weirdo/Documents/coding/INSAlgorithm/include/initialalignment.h
+common.h
+/home/weirdo/Documents/coding/INSAlgorithm/include/common.h
+
 /home/weirdo/Documents/coding/INSAlgorithm/src/calibrateAccel.cpp
 ../include/calibrateAccel.h
 /home/weirdo/Documents/coding/INSAlgorithm/include/calibrateAccel.h
@@ -48,8 +52,14 @@ fstream
 string
 -
 
+/home/weirdo/Documents/coding/INSAlgorithm/src/initialalignment.cpp
+../include/initialalignment.h
+/home/weirdo/Documents/coding/INSAlgorithm/include/initialalignment.h
+
 /home/weirdo/Documents/coding/INSAlgorithm/src/main.cpp
 iostream
+-
+fstream
 -
 eigen3/Eigen/Core
 -
@@ -59,4 +69,6 @@ eigen3/Eigen/Core
 /home/weirdo/Documents/coding/INSAlgorithm/include/calibrateAccel.h
 ../include/calibrateGyro.h
 /home/weirdo/Documents/coding/INSAlgorithm/include/calibrateGyro.h
+../include/initialalignment.h
+/home/weirdo/Documents/coding/INSAlgorithm/include/initialalignment.h
 
