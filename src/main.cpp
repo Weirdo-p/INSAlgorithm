@@ -1,8 +1,10 @@
 #include <iostream>
+#include <fstream>
 #include <eigen3/Eigen/Core>
 #include "../include/common.h"
 #include "../include/calibrateAccel.h"
 #include "../include/calibrateGyro.h"
+#include "../include/initialalignment.h"
 
 using namespace std;
 using namespace Eigen;
@@ -35,8 +37,8 @@ int main()
     string Gyro[6];
     Gyro[0] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/X-negative360.ASC";
     Gyro[1] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/X-positive360.ASC";
-    Gyro[2] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/Y-positive360.ASC";
-    Gyro[3] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/Y-negative360.ASC";
+    Gyro[2] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/Y-negative360.ASC";
+    Gyro[3] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/Y-positive360.ASC";
     Gyro[4] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/Z-negative360.ASC";
     Gyro[5] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/Z-positive360.ASC";
     CalibrateGyro GyroCalibrator(Gyro, Accel);
@@ -44,13 +46,30 @@ int main()
     GyroCalibrator.CalculateM();
     M1 = GyroCalibrator.GetM();
     cout << M1 << endl << endl;
-    VecVector3d* origin_K = GyroCalibrator.GetOrigin();
+    VecVector3d* origin_K = GyroCalibrator.GetOrigin_Static();
     VecVector3d gyro_compensated;
-    Compensate(M1, origin_K[2], gyro_compensated);
+    Compensate(M1, origin_K[0], gyro_compensated);
+    cout << "M1 is " << endl;
+    cout << M1 << endl << endl;
 
-    // for(auto data : gyro_compensated)
+
+    string LINSPath = "/home/weirdo/Documents/coding/INSAlgorithm/data/data3.txt";
+    VecVector3d LinsAccel, LinsGyro;
+    ReadLinsData(LINSPath, LinsAccel, LinsGyro);
+    Alignment alignment(LinsGyro, LinsAccel);
+
+    alignment.StaticAlignmentMean();
+    double* euler = alignment.GetEulerMean();
+    cout << "euler is \n" ;
+    cout << euler[0] << "      " << euler[1] << "     " << euler[2] << endl;
+    ofstream out("/home/weirdo/Documents/coding/INSAlgorithm/uncompensated.txt");
+    // for(auto data : origin_K[4])
     // {
     //     cout << data << endl << endl;
     // }
-    return 0;
+    // for(auto data : euler)
+    // {
+    //     out << data[0] << "," << data[1] << "," << data[2] << endl;
+    // }
+    // return 0;
 }

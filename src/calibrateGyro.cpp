@@ -56,7 +56,7 @@ bool CalibrateGyro::CalculateBias()
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cout << e.what() << '\n';
         return false;
     }
 
@@ -74,7 +74,7 @@ bool CalibrateGyro::CalculateM()
     {
         for(int i = 0; i < 6; ++i)
         {
-            for(auto data : this->Gyro_Static[i])
+            // for(auto data : this->Gyro_Static[i])
                 if(i <= 1)
                     this->CalculateRotation(this->Gyro_Kinematic[i], 0, RotationAngle[i], num[i]);
                 else if(i >= 2 && i < 4)
@@ -86,11 +86,11 @@ bool CalibrateGyro::CalculateM()
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cout << e.what() << '\n';
         return false;
     }
     
-    double PI_2 = PI * 2;
+    double PI_2 = PI * 4;
     M(0, 0) = (RotationAngle[0][0] - RotationAngle[1][0]) / PI_2;   // X axis scale factor
     M(1, 1) = (RotationAngle[2][1] - RotationAngle[3][1]) / PI_2;   // Y axis scale factor
     M(2, 2) = (RotationAngle[4][2] - RotationAngle[5][2]) / PI_2;   // Z axis scale factor
@@ -105,7 +105,7 @@ bool CalibrateGyro::CalculateM()
     M(2, 1) = (RotationAngle[2][2] - RotationAngle[3][2]) / PI_2;   // yz
 
     M.block(0, 0, 3, 3) += Matrix3d::Identity();
-    M.block(0, 3, 3, 1) += this->Bias;
+    M.block(0, 3, 3, 1) = this->Bias;
     return true;
 }
 
@@ -145,7 +145,12 @@ Vector3d CalibrateGyro::GetBias()
     return this->Bias;
 }
 
-VecVector3d* CalibrateGyro::GetOrigin()
+VecVector3d* CalibrateGyro::GetOrigin_Kinematic()
 {
     return this->Gyro_Kinematic;
+}
+
+VecVector3d* CalibrateGyro::GetOrigin_Static()
+{
+    return this->Gyro_Static;
 }

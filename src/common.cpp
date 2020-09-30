@@ -33,9 +33,9 @@ bool ReadASC(string ASCPath, VecVector3d &Accel, VecVector3d &Gyro)
         string head;
         buff >> head >> week >> SOW >> week >> SOW >> status >> accel[2] >> accel[1] >> accel[0]
              >> gyro[2] >> gyro[1] >> gyro[0];
-
         /* Y轴的输出是加了一个负号 */
         accel[1] = -accel[1];
+        /* 陀螺在方程中已经考虑符号关系 */
         gyro[0] = abs(gyro[0]);
         gyro[1] = abs(gyro[1]);
         gyro[2] = abs(gyro[2]);
@@ -86,5 +86,44 @@ bool Compensate(const Matrix34d M, const VecVector3d OriginOuput, VecVector3d &C
         out1 << temp[0] << "," << temp[1] << "," << temp[2] << endl;
         Compensated.push_back(temp);
     }
+    return true;
+}
+
+bool ReadLinsData(const string DataFile, VecVector3d &Accel, VecVector3d &Gyro)
+{
+    ifstream in;
+    in.open(DataFile);
+    if(!in)
+    {
+        cout << "open file error" << endl;
+        return false;
+    }
+
+    while(!in.eof())
+    {
+        string line;
+        stringstream buff;
+        getline(in, line);
+        if(line[0] == 'm')
+            continue;
+        long int week, SOW;
+        Vector3d Accel_temp, Gyro_temp;
+
+        buff << line;
+        buff >> week >> SOW >> Gyro_temp[0] >> Gyro_temp[1] >> Gyro_temp[2]
+             >> Accel_temp[0] >> Accel_temp[1] >> Accel_temp[2];
+
+        Accel_temp[0] = (Accel_temp[0] * GRAVITY);
+        Accel_temp[1] = (Accel_temp[1] * GRAVITY);
+        Accel_temp[2] = (Accel_temp[2] * GRAVITY);
+        
+        Gyro_temp[0] = Deg2Rad((Gyro_temp[0])) / 3600.0;
+        Gyro_temp[1] = Deg2Rad((Gyro_temp[1])) / 3600.0;
+        Gyro_temp[2] = Deg2Rad((Gyro_temp[2])) / 3600.0;
+
+        Accel.push_back(Accel_temp);
+        Gyro.push_back(Gyro_temp);
+    }
+
     return true;
 }
