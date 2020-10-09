@@ -9,7 +9,8 @@
                 "/usr/local/include",
                 "/usr/local/include/opencv4",
                 "/usr/local/include/opencv4/opencv2",
-                "/usr/include/eigen3"
+                "/usr/include/eigen3",
+                "/usr/local/opencv3/"
             ],
             "defines": [],
             // "compilerPath": "/usr/bin/clang",
