@@ -1,4 +1,4 @@
-#include "../include/initialalignment.h"
+#include "initialalignment.h"
 
 Alignment::Alignment(const string path)
 {
@@ -40,8 +40,6 @@ bool Alignment::CalculateMean()
 bool Alignment::StaticAlignmentMean()
 {
     this->CalculateMean();
-    cout << Mean[0] << endl;
-    cout << Mean[1] << endl;
     Vector3d gn(0, 0, -GRAVITY);
     Vector3d Omega_n(OMEGA * cos(Deg2Rad(PHI)), 0, -OMEGA * sin(Deg2Rad(PHI)));
     Vector3d vn = gn.cross(Omega_n);
@@ -51,35 +49,21 @@ bool Alignment::StaticAlignmentMean()
     reference.block(0, 0, 3, 1) = gn;
     reference.block(0, 1, 3, 1) = Omega_n;
     reference.block(0, 2, 3, 1) = vn;
-    // cout << "ref" << endl << reference.inverse() << endl;
-    // reference << -tan(PHI) / GRAVITY, 1.0 / (OMEGA * cos(PHI)), 0,
-    //              0, 0, -1.0 / (GRAVITY * OMEGA * cos(PHI)),
-    //              -1.0 / GRAVITY, 0, 0;
-
+    
     Matrix3d observation;
     observation.block(0, 0, 3, 1) = this->Mean[0];
     observation.block(0, 1, 3, 1) = this->Mean[1];
     observation.block(0, 2, 3, 1) = vb;
-    cout << "obs" << endl << observation << endl;
     try
     {
-        // Matrix3d R;
-        // R << -tan(Deg2Rad(PHI)) / GRAVITY, 1.0 / (OMEGA * cos(Deg2Rad(PHI))), 0,
-        //      0, 0, -1.0 / (GRAVITY * OMEGA * cos(Deg2Rad(PHI))),
-        //      -1.0 / GRAVITY, 0, 0;
-        // Matrix3d Cnb = R * observation.transpose();
         Matrix3d Cnb = reference.transpose().inverse() * observation.transpose();
         this->Cbn = Cnb;
-        // cout << "ref" << R << endl << endl;;
-        cout << "obs" << observation.transpose() << endl << endl;;
-        cout << "before" << endl << Cbn << endl << endl;;
         for(int i = 0; i < 30; ++i)
         {
             auto temp = (this->Cbn + (Cbn.transpose()).inverse()) * 0.5;
             this->Cbn = temp;
         }
 
-        cout << "after" << endl << this->Cbn << endl << endl;
         this->CalculateEuler(Cbn, this->Euler_mean);
     }
     catch(const std::exception& e)
@@ -93,9 +77,9 @@ bool Alignment::StaticAlignmentMean()
 
 bool Alignment::CalculateEuler(const Matrix3d C, double* Euler)
 {
-    Euler[0] = atan2(C(1, 0), C(0, 0));
-    Euler[1] = atan2(-C(2, 0), sqrt(1 -  C(2, 0) * C(2, 0)));
-    Euler[2] = atan2(C(2, 1), C(2, 2));
+    Euler[0] = atan2(C(1, 0), C(0, 0));                       // yaw
+    Euler[1] = atan2(-C(2, 0), sqrt(1 -  C(2, 0) * C(2, 0))); // pitch
+    Euler[2] = atan2(C(2, 1), C(2, 2));                       // roll
 
     for(int i = 0; i < 3; ++i)
         Euler[i] = Rad2Deg(Euler[i]);
@@ -118,27 +102,32 @@ double* Alignment::GetEulerMean()
     return this->Euler_mean;
 }
 
-bool Alignment::StaticAlignmentEpoch()
+bool Alignment::StaticAlignmentEpoch(int duration)
 {
     if(OriginData[0].size() != OriginData[1].size())
         return false;
 
-    Vector3d gn(0, 0, GRAVITY);
+    Vector3d gn(0, 0, -GRAVITY);
     Vector3d Omega_n(OMEGA * cos(Deg2Rad(PHI)), 0, -OMEGA * sin(Deg2Rad(PHI)));
     Vector3d vn = gn.cross(Omega_n);
     Matrix3d reference;
     reference.block(0, 0, 3, 1) = gn;
     reference.block(0, 1, 3, 1) = Omega_n;
     reference.block(0, 2, 3, 1) = vn;
-    cout << reference << endl;
-    // reference << -tan(PHI) / GRAVITY, 1.0 / (OMEGA * cos(PHI)), 0,
-    //              0, 0, -1.0 / (GRAVITY * OMEGA * cos(PHI)),
-    //              -1.0 / GRAVITY, 0, 0;
+
+    int count = 0;
+    Vector3d gb = Vector3d::Zero();
+    Vector3d Omega_b = Vector3d::Zero();
     for(int i = 0; i < this->OriginData[0].size(); ++i)
     {
-        Vector3d gb = OriginData[0][i];
-        Vector3d Omega_b = OriginData[1][i];
-        Vector3d vb = gb.cross(Omega_b);
+        if(count < duration)
+        {
+            gb += OriginData[0][i];
+            Omega_b += OriginData[1][i];
+            count ++;
+            continue;
+        }
+        Vector3d vb = (gb).cross(Omega_b);
         Matrix3d observation;
         observation.block(0, 0, 3, 1) = gb;
         observation.block(0, 1, 3, 1) = Omega_b;
@@ -147,8 +136,6 @@ bool Alignment::StaticAlignmentEpoch()
         try
         {
             Matrix3d Cnb = observation * reference.inverse();
-            // cout << reference.inverse() << endl;
-            // Matrix3d Cnb = reference * observation.transpose();
             Matrix3d C = Cnb.transpose();
             for(int i = 0; i < 30; ++i)
             {
@@ -169,6 +156,9 @@ bool Alignment::StaticAlignmentEpoch()
             std::cout << e.what() << '\n';
             return false;
         }
+        gb = Vector3d::Zero();
+        Omega_b = Vector3d::Zero();
+        count = 0;
     }
 
     return true;

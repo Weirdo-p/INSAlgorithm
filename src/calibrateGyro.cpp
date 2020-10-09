@@ -1,4 +1,4 @@
-#include "../include/calibrateGyro.h"
+#include "calibrateGyro.h"
 #include <fstream>
 
 CalibrateGyro::CalibrateGyro(string* OutputFile_Kinematic, string* OutputFile_Static)
@@ -17,17 +17,6 @@ CalibrateGyro::CalibrateGyro(string* OutputFile_Kinematic, string* OutputFile_St
         }
         vector<Vector3d, Eigen::aligned_allocator<Vector3d>>().swap(accel_temp);
     }
-    // ofstream out;
-    // out.open("/home/weirdo/Downloads/test.txt");
-    // for(auto data : Gyro_Kinematic[1])
-    // {
-    //     out << data[0] << "," << data[1] << "," << data[2] << endl;
-    // }
-    double test = 0;
-    for(auto data : Gyro_Kinematic[0])
-    {
-        test += data[0];
-    }
 }
 
 bool CalibrateGyro::CalculateBias()
@@ -39,7 +28,6 @@ bool CalibrateGyro::CalculateBias()
         {
             double sum = 0;
             for(auto data : this->Gyro_Static[i])
-            
                 if(i <= 1)
                     sum += data[0];
                 else if(i >= 2 && i < 4)
@@ -74,14 +62,12 @@ bool CalibrateGyro::CalculateM()
     {
         for(int i = 0; i < 6; ++i)
         {
-            // for(auto data : this->Gyro_Static[i])
-                if(i <= 1)
-                    this->CalculateRotation(this->Gyro_Kinematic[i], 0, RotationAngle[i], num[i]);
-                else if(i >= 2 && i < 4)
-                    this->CalculateRotation(this->Gyro_Kinematic[i], 1, RotationAngle[i], num[i]);
-                else if(i >= 4 && i < 6)
-                    this->CalculateRotation(this->Gyro_Kinematic[i], 2, RotationAngle[i], num[i]);
-            cout << RotationAngle[i] << "     " << num[i] << endl << endl;
+            if(i <= 1)
+                this->CalculateRotation(this->Gyro_Kinematic[i], 0, RotationAngle[i], num[i]);
+            else if(i >= 2 && i < 4)
+                this->CalculateRotation(this->Gyro_Kinematic[i], 1, RotationAngle[i], num[i]);
+            else if(i >= 4 && i < 6)
+                this->CalculateRotation(this->Gyro_Kinematic[i], 2, RotationAngle[i], num[i]);
         }
     }
     catch(const std::exception& e)
@@ -104,7 +90,7 @@ bool CalibrateGyro::CalculateM()
     M(2, 0) = (RotationAngle[0][2] - RotationAngle[1][2]) / PI_2;   // xz
     M(2, 1) = (RotationAngle[2][2] - RotationAngle[3][2]) / PI_2;   // yz
 
-    M.block(0, 0, 3, 3) += Matrix3d::Identity();
+    // M.block(0, 0, 3, 3) += Matrix3d::Identity();
     M.block(0, 3, 3, 1) = this->Bias;
     return true;
 }

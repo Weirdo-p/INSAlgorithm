@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <eigen3/Eigen/Core>
-#include "../include/common.h"
-#include "../include/calibrateAccel.h"
-#include "../include/calibrateGyro.h"
-#include "../include/initialalignment.h"
+#include "common.h"
+#include "calibrateAccel.h"
+#include "calibrateGyro.h"
+#include "initialalignment.h"
 
 using namespace std;
 using namespace Eigen;
@@ -21,18 +21,11 @@ int main()
     CalibrateAccel AccelCalibrator(Accel);
     AccelCalibrator.CalculateM();
     VecVector3d* origin = AccelCalibrator.GetAccelOrigin();
-    // for(auto data : origin[1])
-    // {
-    //     cout << data << endl << endl;
-    // }
+
     Matrix34d M = AccelCalibrator.GetM();
-    cout << "Accel------M\n" << M << endl << endl;
+    cout << "Accel-----------------\n" << M << endl << endl;
     VecVector3d compensated;
-    Compensate(M, origin[0], compensated);
-    // for(auto data : compensated)
-    // {
-    //     cout << data << endl << endl;
-    // }
+    Compensate(M, origin[5], compensated);
 
     string Gyro[6];
     Gyro[0] = "/home/weirdo/Documents/coding/INSAlgorithm/data/firstgroup/Kinematic/X-negative360.ASC";
@@ -45,11 +38,10 @@ int main()
     Matrix34d M1;
     GyroCalibrator.CalculateM();
     M1 = GyroCalibrator.GetM();
-    cout << M1 << endl << endl;
     VecVector3d* origin_K = GyroCalibrator.GetOrigin_Static();
     VecVector3d gyro_compensated;
     Compensate(M1, origin_K[0], gyro_compensated);
-    cout << "M1 is " << endl;
+    cout << "Gyro------------------" << endl;
     cout << M1 << endl << endl;
 
 
@@ -60,16 +52,13 @@ int main()
 
     alignment.StaticAlignmentMean();
     double* euler = alignment.GetEulerMean();
-    cout << "euler is \n" ;
-    cout << euler[0] << "      " << euler[1] << "     " << euler[2] << endl;
-    ofstream out("/home/weirdo/Documents/coding/INSAlgorithm/uncompensated.txt");
-    // for(auto data : origin_K[4])
-    // {
-    //     cout << data << endl << endl;
-    // }
+    ofstream out("/home/weirdo/Documents/coding/INSAlgorithm/alignmentmean.txt");
     // for(auto data : euler)
     // {
     //     out << data[0] << "," << data[1] << "," << data[2] << endl;
     // }
-    // return 0;
+    // cout << "euler is \n" ;
+    out << euler[0] << "," << euler[1] << "," << euler[2] << endl;
+
+    return 0;
 }

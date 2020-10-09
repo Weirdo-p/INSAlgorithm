@@ -37,17 +37,32 @@ class Alignment
     /**********************************
      * to calculate the euler angle
      * via Cbn epoch by epoch
+     * @param duration how long to calculate
      * @return status code
     **********************************/
-    bool StaticAlignmentEpoch();
+    bool StaticAlignmentEpoch(int duration);
 
     public:
+    /**********************************************
+     * to return Mean value of observation of Gyro and Accel
+    ***********************************************/
     Vector3d* GetMean();
 
+    /***************************
+     * function: to return DCM
+    ***************************/
     Matrix3d GetCbn();
 
+    /*********************************************
+     * function: to get euler angle calculated by
+     *           all epoches' mean value
+    *********************************************/
     double* GetEulerMean();
 
+    /*************************************
+     * function: get the Euler calculated
+     *           the specific duration
+    *************************************/
     VecVector3d GetEulerEpoch();
 
     private:
@@ -81,6 +96,7 @@ class Alignment
 
     /*********************************
      * calculate euler epoch by epoch
+     * or evry the specific epoch
     *********************************/
     VecVector3d Euler_epoch;
 };

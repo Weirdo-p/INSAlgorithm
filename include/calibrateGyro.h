@@ -54,17 +54,43 @@ class CalibrateGyro
     **********************************************************/
     bool CalculateRotation(const VecVector3d GyroData, const int axis, Vector3d &RotationAngle, int &num);
 
+    /********************************************
+     * function: return Gyro calibration result
+    ********************************************/
     Matrix34d GetM();
 
+    /*********************
+     * function: Get bias
+    *********************/
     Vector3d GetBias();
 
+    /************************************
+     * function: get gyro kinematic data
+    ************************************/
     VecVector3d* GetOrigin_Kinematic();
 
+    /*********************************
+     * function: get gyro static data
+    *********************************/
     VecVector3d* GetOrigin_Static();
 
     public:
+    /************************************
+     * function: Read .ASC file
+     * @param ASCPath [in]  filepath
+     * @param Accel   [out]  Accel output
+     * @param Gyro    [out]  Gyro output
+     * @return status code
+    ************************************/
     friend bool ReadASC(string ASCPath, VecVector3d &Accel, VecVector3d &Gyro);
 
+    /************************************************************
+     * function: compensate Gyro or Accel output
+     * @param M [in] result of calibration
+     * @param OriginOutput [in] gyro or accel's original output
+     * @param Compensated  [out] result of compensation
+     * @return status code
+    ************************************************************/
     friend bool Compensate(const Matrix34d M, const VecVector3d OriginOuput, VecVector3d &Compensated);
     
     private:

@@ -1,8 +1,8 @@
-#include "../include/calibrateAccel.h"
-#include "../include/common.h"
+#include "calibrateAccel.h"
+#include "common.h"
 
 #include <fstream>
-#include <eigen3/Eigen/Dense>
+#include <Eigen/Dense>
 
 
 CalibrateAccel::CalibrateAccel(string* OutputFile)
