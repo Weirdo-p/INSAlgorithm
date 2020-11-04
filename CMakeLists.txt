@@ -8,6 +8,3 @@ include_directories(include)
 AUX_SOURCE_DIRECTORY(src DIR_SRCS)
 include_directories("/usr/include/eigen3")
 add_executable(a ${DIR_SRCS})
-
-
-
