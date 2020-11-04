@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/a.dir/src/common.cpp.o"
   "CMakeFiles/a.dir/src/initialalignment.cpp.o"
   "CMakeFiles/a.dir/src/main.cpp.o"
+  "CMakeFiles/a.dir/src/mechanical.cpp.o"
   "a.pdb"
   "a"
 )

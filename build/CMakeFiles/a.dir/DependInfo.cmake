@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/weirdo/Documents/coding/INSAlgorithm/src/common.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/common.cpp.o"
   "/home/weirdo/Documents/coding/INSAlgorithm/src/initialalignment.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/initialalignment.cpp.o"
   "/home/weirdo/Documents/coding/INSAlgorithm/src/main.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/main.cpp.o"
+  "/home/weirdo/Documents/coding/INSAlgorithm/src/mechanical.cpp" "/home/weirdo/Documents/coding/INSAlgorithm/build/CMakeFiles/a.dir/src/mechanical.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

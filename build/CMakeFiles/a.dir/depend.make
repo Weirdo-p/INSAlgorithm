@@ -232,5 +232,10 @@ CMakeFiles/a.dir/src/main.cpp.o: ../include/calibrateAccel.h
 CMakeFiles/a.dir/src/main.cpp.o: ../include/calibrateGyro.h
 CMakeFiles/a.dir/src/main.cpp.o: ../include/common.h
 CMakeFiles/a.dir/src/main.cpp.o: ../include/initialalignment.h
+CMakeFiles/a.dir/src/main.cpp.o: ../include/mechanical.h
 CMakeFiles/a.dir/src/main.cpp.o: ../src/main.cpp
+
+CMakeFiles/a.dir/src/mechanical.cpp.o: ../include/common.h
+CMakeFiles/a.dir/src/mechanical.cpp.o: ../include/mechanical.h
+CMakeFiles/a.dir/src/mechanical.cpp.o: ../src/mechanical.cpp
 

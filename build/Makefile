@@ -258,6 +258,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/mechanical.o: src/mechanical.cpp.o
+
+.PHONY : src/mechanical.o
+
+# target to build an object file
+src/mechanical.cpp.o:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/mechanical.cpp.o
+.PHONY : src/mechanical.cpp.o
+
+src/mechanical.i: src/mechanical.cpp.i
+
+.PHONY : src/mechanical.i
+
+# target to preprocess a source file
+src/mechanical.cpp.i:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/mechanical.cpp.i
+.PHONY : src/mechanical.cpp.i
+
+src/mechanical.s: src/mechanical.cpp.s
+
+.PHONY : src/mechanical.s
+
+# target to generate assembly for a file
+src/mechanical.cpp.s:
+	$(MAKE) -f CMakeFiles/a.dir/build.make CMakeFiles/a.dir/src/mechanical.cpp.s
+.PHONY : src/mechanical.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -282,6 +309,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/mechanical.o"
+	@echo "... src/mechanical.i"
+	@echo "... src/mechanical.s"
 .PHONY : help
 
 
