@@ -4,7 +4,6 @@
 #include <fstream>
 #include <Eigen/Dense>
 
-
 CalibrateAccel::CalibrateAccel(string* OutputFile)
 {
     VecVector3d gyro_temp;

@@ -76,19 +76,19 @@ bool CalibrateGyro::CalculateM()
         return false;
     }
     
-    double PI_2 = PI * 4;
-    M(0, 0) = (RotationAngle[0][0] - RotationAngle[1][0]) / PI_2;   // X axis scale factor
-    M(1, 1) = (RotationAngle[2][1] - RotationAngle[3][1]) / PI_2;   // Y axis scale factor
-    M(2, 2) = (RotationAngle[4][2] - RotationAngle[5][2]) / PI_2;   // Z axis scale factor
+    double PI_2 = PI * 2;
+    M(0, 0) = (RotationAngle[0][0] - RotationAngle[1][0]) / PI_2 / 2;   // X axis scale factor
+    M(1, 1) = (RotationAngle[2][1] - RotationAngle[3][1]) / PI_2 / 2;   // Y axis scale factor
+    M(2, 2) = (RotationAngle[4][2] - RotationAngle[5][2]) / PI_2 / 2;   // Z axis scale factor
 
-    M(0, 1) = (RotationAngle[2][0] - RotationAngle[3][0]) / PI_2;   // yx
-    M(0, 2) = (RotationAngle[4][0] - RotationAngle[5][0]) / PI_2;   // zx
+    M(0, 1) = (RotationAngle[2][0] - RotationAngle[3][0]) / PI_2 / 2;   // yx
+    M(0, 2) = (RotationAngle[4][0] - RotationAngle[5][0]) / PI_2 / 2;   // zx
 
-    M(1, 0) = (RotationAngle[0][1] - RotationAngle[1][1]) / PI_2;   // xy
-    M(1, 2) = (RotationAngle[4][1] - RotationAngle[5][1]) / PI_2;   // zy
+    M(1, 0) = (RotationAngle[0][1] - RotationAngle[1][1]) / PI_2 / 2;   // xy
+    M(1, 2) = (RotationAngle[4][1] - RotationAngle[5][1]) / PI_2 / 2;   // zy
 
-    M(2, 0) = (RotationAngle[0][2] - RotationAngle[1][2]) / PI_2;   // xz
-    M(2, 1) = (RotationAngle[2][2] - RotationAngle[3][2]) / PI_2;   // yz
+    M(2, 0) = (RotationAngle[0][2] - RotationAngle[1][2]) / PI_2 / 2;   // xz
+    M(2, 1) = (RotationAngle[2][2] - RotationAngle[3][2]) / PI_2 / 2;   // yz
 
     // M.block(0, 0, 3, 3) += Matrix3d::Identity();
     M.block(0, 3, 3, 1) = this->Bias;

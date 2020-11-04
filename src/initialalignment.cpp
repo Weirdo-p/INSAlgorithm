@@ -1,4 +1,4 @@
-#include "initialalignment.h"
+#include "../include/initialalignment.h"
 
 Alignment::Alignment(const string path)
 {
@@ -80,9 +80,6 @@ bool Alignment::CalculateEuler(const Matrix3d C, double* Euler)
     Euler[0] = atan2(C(1, 0), C(0, 0));                       // yaw
     Euler[1] = atan2(-C(2, 0), sqrt(1 -  C(2, 0) * C(2, 0))); // pitch
     Euler[2] = atan2(C(2, 1), C(2, 2));                       // roll
-
-    for(int i = 0; i < 3; ++i)
-        Euler[i] = Rad2Deg(Euler[i]);
 
     return true;
 }
