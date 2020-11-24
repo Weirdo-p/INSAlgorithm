@@ -136,7 +136,19 @@ bool ReadBinaryData(FILE* fp, Output &p)
 {
     if(!fread(&p, sizeof(p), 1, fp))
         return false;
-    p.az = -p.az;
+    // p.az = -p.az;
+    ifstream in("./lide.txt");
+    
+
+    // out << setprecision(15);
+    // out.seekp(ios::beg);
+    // out << p.time << p.gx << p.gy << p.gz << p.ax << p.ay << p.az;
+    // out.write((char*)&p.time, 8);
+    // out.write((char*)&p.time, 8);
+    // out.write((char*)&p.time, 8);
+    // out.write((char*)&p.time, 8);
+    // out.write((char*)&p.time, 8);
+    
     return true;
 }
 
@@ -147,11 +159,15 @@ bool DetectStaticData(FILE* fp, VecVector3d &gyro, VecVector3d &accel)
         Output p;
         if(!fread(&p, sizeof(p), 1, fp))
             return false;
-        if(abs(p.gx) > 8e-4)
+        if(abs(p.gx) > 1.25e-5)
             return true;
-        // cout << p.time << endl;
-        gyro.push_back(Vector3d(Deg2Rad(p.gy), Deg2Rad(p.gx), Deg2Rad(-p.gz)));
-        accel.push_back(Vector3d(p.ay, p.ax, -p.az));
+        cout << setprecision(15) << p.time << endl;
+        gyro.push_back(Vector3d(Deg2Rad(p.gx * ZCF), Deg2Rad(p.gy * ZCF), Deg2Rad(p.gz * ZCF)));
+        accel.push_back(Vector3d(p.ax * ZCF, p.ay * ZCF, p.az * ZCF));
+        cout << Vector3d(p.ax * ZCF, p.ay * ZCF, -p.az * ZCF) << endl << endl;
+        break;
+        // cout << gyro.size() << endl;
+        // cout << accel.size() << endl;
     }
 }
 
@@ -230,9 +246,12 @@ double RN(double phi, ELLIPSOID type) {
 }
 
 int GetOutput(FILE* fp, Output &op) {
-    if(!fread(&op, sizeof(op), 1, fp))
-        return 1;
-    // op.az = -op.az;
+    fread(&op, sizeof(op), 1, fp);
+    // cout << setprecision(15);
+    // cout << op.gx << "   " << op.gy << "   " << op.gz << endl;
+    // op.gx = Deg2Rad(op.gx);
+    // op.gy = Deg2Rad(op.gy);
+    // op.gz = Deg2Rad(op.gz);
     return 0;
 }
 
@@ -286,14 +305,13 @@ Matrix3d Vector2Matrix(Vector3d vec) {
 bool CalculateEuler(const Matrix3d C, Vector3d &Euler)
 {
     Euler[0] = atan2(C(1, 0), C(0, 0));                       // yaw
-    Euler[1] = atan2(-C(2, 0), sqrt(1 -  C(2, 0) * C(2, 0))); // pitch
+    Euler[1] = atan(-C(2, 0) / sqrt(1 -  C(2, 0) * C(2, 0))); // pitch
     Euler[2] = atan2(C(2, 1), C(2, 2));                       // roll
 
     return true;
 }
 
-Quaterniond 
-Vec2Qua(Vector3d vec) {
+Quaterniond Vec2Qua(Vector3d vec) {
     double angle = 0.5 * vec.norm();
     double coe = sin(angle) / angle;
 

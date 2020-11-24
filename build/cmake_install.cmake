@@ -1,4 +1,4 @@
-# Install script for directory: /home/weirdo/Documents/coding/INSAlgorithm
+# Install script for directory: /home/weirdo/Documents/code/C++/INSAlgorithm
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/weirdo/Documents/coding/INSAlgorithm/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/weirdo/Documents/code/C++/INSAlgorithm/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -27,6 +27,7 @@ bool Alignment::CalculateMean()
                 this->Mean[i][2] += (data[2]);
             }
             this->Mean[i] /= this->OriginData[i].size();
+            cout << OriginData[i].size() << endl; 
         }
         catch(const std::exception& e)
         {
@@ -40,6 +41,7 @@ bool Alignment::CalculateMean()
 bool Alignment::StaticAlignmentMean()
 {
     this->CalculateMean();
+    cout << this->Mean[0] << endl;
     Vector3d gn(0, 0, -GRAVITY);
     Vector3d Omega_n(OMEGA * cos(Deg2Rad(PHI)), 0, -OMEGA * sin(Deg2Rad(PHI)));
     Vector3d vn = gn.cross(Omega_n);
@@ -77,9 +79,9 @@ bool Alignment::StaticAlignmentMean()
 
 bool Alignment::CalculateEuler(const Matrix3d C, double* Euler)
 {
-    Euler[0] = atan2(C(1, 0), C(0, 0));                       // yaw
+    Euler[2] = atan2(C(1, 0), C(0, 0));                       // roll
     Euler[1] = atan2(-C(2, 0), sqrt(1 -  C(2, 0) * C(2, 0))); // pitch
-    Euler[2] = atan2(C(2, 1), C(2, 2));                       // roll
+    Euler[0] = atan2(C(2, 1), C(2, 2));                       // yaw
 
     return true;
 }

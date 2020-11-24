@@ -12,17 +12,17 @@
 #include <vector>
 
 // #define PHI 30.4042231878 // in deg
-#define PHI 30.5278 // in deg
+#define PHI                     30.5278 // in deg
 
-#define GRAVITY 9.7936174
-#define OMEGA 7.292115e-5 // self rotation
-#define _T_ 0.01 // frequency
+#define GRAVITY                 9.7936174
+#define OMEGA                   7.292115e-5 // self rotation
+#define _T_                     0.01 // frequency
 
-#define GYRO_SCALE            0.1 / (3600.0 * 256.0)
-#define ACCEL_SCALE           0.05 / 32768.0
-#define PI                    3.14159265358979323846
-#define SECRAD                (180.0 * 3600 / PI)  // 206265
-#define ZCF                   200
+#define GYRO_SCALE              0.1 / (3600.0 * 256.0)
+#define ACCEL_SCALE             0.05 / 32768.0
+#define PI                      3.14159265358979323846
+#define SECRAD                  (180.0 * 3600 / PI)  // 206265
+#define ZCF                     (200)
 
 using namespace std;
 using namespace Eigen;
@@ -180,22 +180,58 @@ Quaterniond Eu2Qu(Euler eu);
 
 Matrix3d Eu2Ro(Euler eu);
 
-/**
+/*********************************************************
  * function: to transfer a vector to its symmetrix matrix
-*/
+ * @param vec   Eigen vector
+ * @return      symmetrix matrix
+*********************************************************/
 Matrix3d Vector2Matrix(Vector3d vec);
 
+/*************************************
+ * function: 计算子午圈曲率半径
+ * @param   phi     latitude
+ * @param   type    Ellipsoid params
+ * @return  子午圈曲率半径
+*************************************/
 double RM(double phi, ELLIPSOID type);
 
+/*************************************
+ * function: 计算卯酉圈曲率半径
+ * @param   phi     latitude
+ * @param   type    Ellipsoid params
+ * @return  卯酉圈曲率半径
+*************************************/
 double RN(double phi, ELLIPSOID type);
 
+/**********************************
+ * funtion: to get binary data
+ * format: time gx gy gz ax ay az
+ * @param   fp  file pointer
+ * @param   op  output
+ * @return   status code
+**********************************/
 int GetOutput(FILE* fp, Output &op);
 
+/************************************
+ * function: to calculate gravity
+ * @param   type    ellipsoid param
+ * @param   blh     blh
+ * @return  gravity
+************************************/
 double GetGravity(ELLIPSOID type, BLH blh);
 
+/*************************************
+ * function: calculate euler from DCM
+ * @param   C       DCM
+ * @param   Euler   euler
+ * @return  true if success
+*************************************/
 bool CalculateEuler(const Matrix3d C, Vector3d &Euler);
 
+/******************************
+ * function: 等效旋转矢量转四元数
+ * @param vec   等效旋转矢量
+ * @return  quaternion
+******************************/
 Quaterniond Vec2Qua(Vector3d vec);
-
-Quaterniond Eu2Qua(Euler eu);
 #endif

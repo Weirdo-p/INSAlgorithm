@@ -1,1 +1,1 @@
-/usr/bin/g++-7  -O3 -std=c++11 -g  -rdynamic CMakeFiles/a.dir/src/calibrateAccel.cpp.o CMakeFiles/a.dir/src/calibrateGyro.cpp.o CMakeFiles/a.dir/src/common.cpp.o CMakeFiles/a.dir/src/initialalignment.cpp.o CMakeFiles/a.dir/src/main.cpp.o CMakeFiles/a.dir/src/mechanical.cpp.o  -o a 
+/usr/bin/c++  -O3 -std=c++11 -g  -rdynamic CMakeFiles/a.dir/src/calibrateAccel.cpp.o CMakeFiles/a.dir/src/calibrateGyro.cpp.o CMakeFiles/a.dir/src/common.cpp.o CMakeFiles/a.dir/src/initialalignment.cpp.o CMakeFiles/a.dir/src/main.cpp.o CMakeFiles/a.dir/src/mechanical.cpp.o  -o a 

@@ -8,7 +8,8 @@ Mechanization::Mechanization(Euler pose, BLH prvBLH, ELLIPSOID type, Output prv)
     this->prvPose = pose;
     this->prvPosi = prvBLH;
     this->type = type;
-    this->prvVel = Vector3d::Zero();
+    this->prvVel = Vector3d(-6.360, -0.040, 0.049);
+    // this->prvVel = Vector3d::Zero();
     this->prvOut = prv;
 }
 
@@ -20,6 +21,7 @@ bool Mechanization::Update(Output now) {
     this->prvPose = this->nowPose;
     this->prvPosi = this->nowPosi;
     this->prvVel = this->nowVel;
+    return true;
 }
 
 bool Mechanization::UpdatePosi(Output now) {
@@ -33,22 +35,11 @@ bool Mechanization::UpdatePosi(Output now) {
     
     double phi = 0.5 * (prvPosi.B + nowPosi.B);
     double rn = RN(phi, type);
+    // cout << setprecision(15) << rn << endl;
     this->nowPosi.L = prvPosi.L + 0.5 * (prvVel(1, 0) + nowVel(1, 0)) / ((rn + h) * cos(phi)) * 1.0 / ZCF;
     // cout << Rad2Deg(this->nowPosi.L) << endl;
 }
 
-
-// bool Mechanization::UpdatePose(FILE* fp, Euler prv, BLH prvBLH, Euler &now)
-// {
-//     Output out;
-//     if(!fread(&now, sizeof(out), 1, fp))
-//         return false;
-//     Vector3d DeltaThetak(out.gx / ZCF, out.gy / ZCF, out.gz / ZCF);
-//     Vector3d DeltaTheta_prv(prv.roll, prv.pitch, prv.yaw);
-//     Vector3d phik_eu = DeltaThetak + 1.0 / 12.0 * DeltaTheta_prv.cross(DeltaThetak);
-//     AngleAxisd phik(phik_eu.norm(), phik_eu);
-//     Quaterniond qb(phik);
-// }
 bool Mechanization::UpdatePose(Output now) {
     // update body frame
     Vector3d deltaThetak(now.gx, now.gy, now.gz);
@@ -93,13 +84,6 @@ bool Mechanization::UpdateV(Output now) {
     Vector3d vfkb = CalculateVfkb(now);
     Vector3d vfkn = Calculatevfkn(vfkb, ksai);
     this->nowVel = prvVel + vfkn + vcor;
-    // cout << nowVel.transpose() << endl;
-    // cout << vcor.transpose() << endl;
-    // cout << prvVel.transpose() << endl;
-    // cout << vfkn.transpose() << endl;
-    // cout << vfkb.transpose() << endl;
-    // cout << ksai.transpose() << endl;
-    // cout << vfkn << endl;
 }
 
 Vector3d Mechanization::Calculatevgcor(BLH blh) {
@@ -133,6 +117,16 @@ Vector3d Mechanization::CalculateVfkb(Output now) {
     Vector3d ScullingCompensation = 1.0 / 12.0 * (deltaThetaPrv.cross(deltaVk) + deltaVkPrv.cross(deltaThetak));
 
     return (deltaVk + RotationCompensation + ScullingCompensation);
+}
+
+bool Mechanization::ZUPT(Output now) {
+    if(abs(now.ax) > 2e-5) {
+        return false;
+    }
+    this->nowVel = Vector3d::Zero();
+    this->nowPosi = this->prvPosi;
+    this->nowPose = this->prvPose;
+    return true;
 }
 
 Vector3d Mechanization::Calculatevfkn(Vector3d vfkb, Vector3d ksai) {

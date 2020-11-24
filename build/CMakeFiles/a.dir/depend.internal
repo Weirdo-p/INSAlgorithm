@@ -4,7 +4,7 @@
 CMakeFiles/a.dir/src/calibrateAccel.cpp.o
  ../include/calibrateAccel.h
  ../include/common.h
- /home/weirdo/Documents/coding/INSAlgorithm/src/calibrateAccel.cpp
+ /home/weirdo/Documents/code/C++/INSAlgorithm/src/calibrateAccel.cpp
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
  /usr/include/eigen3/Eigen/Dense
@@ -220,22 +220,22 @@ CMakeFiles/a.dir/src/calibrateAccel.cpp.o
 CMakeFiles/a.dir/src/calibrateGyro.cpp.o
  ../include/calibrateGyro.h
  ../include/common.h
- /home/weirdo/Documents/coding/INSAlgorithm/src/calibrateGyro.cpp
+ /home/weirdo/Documents/code/C++/INSAlgorithm/src/calibrateGyro.cpp
 CMakeFiles/a.dir/src/common.cpp.o
- /home/weirdo/Documents/coding/INSAlgorithm/include/common.h
- /home/weirdo/Documents/coding/INSAlgorithm/src/common.cpp
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/common.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/src/common.cpp
 CMakeFiles/a.dir/src/initialalignment.cpp.o
- /home/weirdo/Documents/coding/INSAlgorithm/include/common.h
- /home/weirdo/Documents/coding/INSAlgorithm/include/initialalignment.h
- /home/weirdo/Documents/coding/INSAlgorithm/src/initialalignment.cpp
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/common.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/initialalignment.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/src/initialalignment.cpp
 CMakeFiles/a.dir/src/main.cpp.o
- /home/weirdo/Documents/coding/INSAlgorithm/include/calibrateAccel.h
- /home/weirdo/Documents/coding/INSAlgorithm/include/calibrateGyro.h
- /home/weirdo/Documents/coding/INSAlgorithm/include/common.h
- /home/weirdo/Documents/coding/INSAlgorithm/include/initialalignment.h
- /home/weirdo/Documents/coding/INSAlgorithm/include/mechanical.h
- /home/weirdo/Documents/coding/INSAlgorithm/src/main.cpp
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/calibrateAccel.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/calibrateGyro.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/common.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/initialalignment.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/mechanical.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/src/main.cpp
 CMakeFiles/a.dir/src/mechanical.cpp.o
- /home/weirdo/Documents/coding/INSAlgorithm/include/common.h
- /home/weirdo/Documents/coding/INSAlgorithm/include/mechanical.h
- /home/weirdo/Documents/coding/INSAlgorithm/src/mechanical.cpp
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/common.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/include/mechanical.h
+ /home/weirdo/Documents/code/C++/INSAlgorithm/src/mechanical.cpp
